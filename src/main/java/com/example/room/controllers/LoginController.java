@@ -1,7 +1,7 @@
 package com.example.room.controllers;
 
 import com.example.room.models.entities.Account;
-import com.example.room.models.jwt.jwtresponse;
+import com.example.room.models.response.jwtresponse;
 import com.example.room.services.JwtService;
 import com.example.room.services.MyUserDetailsService;
 import org.springframework.http.ResponseEntity;
@@ -12,14 +12,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class HelloController {
+public class LoginController {
     private final AuthenticationManager authenticationManager;
 
     private final MyUserDetailsService myUserDetailsService;
 
     private final JwtService jwtService;
 
-    public HelloController(AuthenticationManager authenticationManager, MyUserDetailsService myUserDetailsService, JwtService jwtService) {
+    public LoginController(AuthenticationManager authenticationManager, MyUserDetailsService myUserDetailsService, JwtService jwtService) {
         this.authenticationManager = authenticationManager;
         this.myUserDetailsService = myUserDetailsService;
         this.jwtService = jwtService;

@@ -16,6 +16,39 @@ public class Account {
     @Column(name = "password" )
     private String password;
 
+    @Column(name = "fullname")
+    private String fullname;
+
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "department_id")
+    private long  departmentId;
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public long getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(long departmentId) {
+        this.departmentId = departmentId;
+    }
+
     public Long getId() {
         return id;
     }
@@ -39,4 +72,6 @@ public class Account {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }
