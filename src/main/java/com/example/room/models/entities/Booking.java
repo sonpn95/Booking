@@ -26,6 +26,9 @@ public class Booking {
     @Column(name = "room_id")
     private Long roomId;
 
+    @Column(name = "title")
+    private String title;
+
     public Long getId() {
         return id;
     }
