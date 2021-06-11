@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.function.Function;
 @Service
 public class JwtService {
+
     private String SECRET_KEY ="KingoftheNorth";
 
     public String extractUsername(String token){

@@ -5,16 +5,18 @@ import com.example.room.repositories.AccountRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class AccountRoleService {
+    private final AccountRoleRepository repository;
+    public AccountRoleService(AccountRoleRepository repository){
+        this.repository = repository;
+    }
 
-    @Autowired
-    private AccountRoleRepository repository;
-
-    public Optional<AccountRole> findAccountRole(int accountId){
-        return repository.findAllByAccountId(accountId);
+    public List<Optional<AccountRole>> findAccountRole(long accountId){
+        return repository.findByAccountId(accountId);
     }
 
 }

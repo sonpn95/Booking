@@ -1,21 +1,25 @@
 package com.example.room.controllers;
 
-import com.example.room.models.entities.Account;
-import com.example.room.models.response.jwtresponse;
+import com.example.room.models.request.JwtRequest;
+import com.example.room.models.response.jwtResponse;
 import com.example.room.services.JwtService;
 import com.example.room.services.MyUserDetailsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @RestController
 public class LoginController {
     private final AuthenticationManager authenticationManager;
 
-    private final MyUserDetailsService myUserDetailsService;
+    private final UserDetailsService myUserDetailsService;
 
     private final JwtService jwtService;
 
@@ -30,17 +34,18 @@ public class LoginController {
         return "Hello";
     }
 
-    @RequestMapping(value="/authen", method= RequestMethod.POST)
-    public ResponseEntity<?> createAuthentication(@RequestBody Account account) throws Exception{
+    @PostMapping("/authen")
+    public ResponseEntity<?> createAuthentication(@RequestBody JwtRequest jwtRequest) throws Exception{
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(account.getEmail(), account.getPassword()));
-        }catch(BadCredentialsException e){
-            throw new Exception("incorrect",e);
+            Authentication principal = new UsernamePasswordAuthenticationToken(jwtRequest.getEmail(), jwtRequest.getPassword());
+            authenticationManager.authenticate(principal);
+        }catch(Exception e){
+            e. printStackTrace();
         }
 
-        final UserDetails userDetails = myUserDetailsService.loadUserByUsername(account.getEmail());
+        final UserDetails userDetails = myUserDetailsService.loadUserByUsername(jwtRequest.getEmail());
         final String jwt = jwtService.generateToken(userDetails);
-        return ResponseEntity.ok(new jwtresponse(jwt));
+        return ResponseEntity.ok(new jwtResponse(jwt));
 
     }
 }

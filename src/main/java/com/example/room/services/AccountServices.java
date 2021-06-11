@@ -7,11 +7,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AccountServices {
-    @Autowired
+    final
     AccountRepository repository;
 
+    public AccountServices(AccountRepository repository) {
+        this.repository = repository;
+    }
+
     public Account findAccount(String email){
-        return repository.findByEmail(email);
+        return repository.findByEmail(email).get();
     }
 
 

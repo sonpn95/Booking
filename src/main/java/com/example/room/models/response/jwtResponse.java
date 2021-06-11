@@ -1,9 +1,9 @@
 package com.example.room.models.response;
 
-public class jwtresponse {
+public class jwtResponse {
     private final String jwt;
 
-    public  jwtresponse(String jwt){
+    public jwtResponse(String jwt){
         this.jwt=jwt;
     }
     public String getJwt(){
