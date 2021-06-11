@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
@@ -37,10 +36,9 @@ public class LoginController {
     @PostMapping("/authen")
     public ResponseEntity<?> createAuthentication(@RequestBody JwtRequest jwtRequest) throws Exception{
         try {
-            Authentication principal = new UsernamePasswordAuthenticationToken(jwtRequest.getEmail(), jwtRequest.getPassword());
-            authenticationManager.authenticate(principal);
-        }catch(Exception e){
-            e. printStackTrace();
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getEmail(), jwtRequest.getPassword()));
+        }catch(BadCredentialsException e){
+            throw new Exception("incorrect",e);
         }
 
         final UserDetails userDetails = myUserDetailsService.loadUserByUsername(jwtRequest.getEmail());
