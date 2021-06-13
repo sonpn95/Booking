@@ -30,11 +30,15 @@ com/example/room/repositories/AccountRoleRepository.java
  com.example.room.repositories.AccountRoleRepository
 com/example/room/models/response/jwtResponse.java
  com.example.room.models.response.jwtResponse
+com/example/room/exceptions/MyUsernameNotFoundException.java
+ com.example.room.exceptions.MyUsernameNotFoundException
+com/example/room/exceptions/JwtAuthenticationEntryPoint.java
+ com.example.room.exceptions.JwtAuthenticationEntryPoint
 com/example/room/security/SecurityConfigurer.java
  com.example.room.security.SecurityConfigurer
-com/example/room/services/MyUserDetailsService.java
- com.example.room.services.MyUserDetailsService
-com/example/room/jwt/JwtRequestFilter.java
- com.example.room.jwt.JwtRequestFilter
 com/example/room/controllers/LoginController.java
  com.example.room.controllers.LoginController
+com/example/room/jwt/JwtRequestFilter.java
+ com.example.room.jwt.JwtRequestFilter
+com/example/room/services/MyUserDetailsService.java
+ com.example.room.services.MyUserDetailsService

@@ -1,6 +1,8 @@
 package com.example.room.services;
 
+import com.example.room.exceptions.MyUsernameNotFoundException;
 import com.example.room.models.entities.Account;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,8 +29,8 @@ public class MyUserDetailsService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Account account = accountServices.findAccount(email);
-        if(account == null){
-            throw new UsernameNotFoundException("User not found");
+        if (account == null){
+            throw new UsernameNotFoundException("username not found");
         }
         Set<GrantedAuthority> grantedAuthority =  new HashSet<>();
         List<String> roleName = roleService.findRole(account.getId());
@@ -37,5 +39,6 @@ public class MyUserDetailsService implements UserDetailsService {
         }
 
         return new org.springframework.security.core.userdetails.User(account.getEmail(), account.getPassword(), grantedAuthority);
+
     }
 }

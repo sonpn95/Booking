@@ -32,13 +32,17 @@ public class LoginController {
     public String index(){
         return "Hello";
     }
+    @GetMapping("/hi")
+    public String in(){
+        return "haha";
+    }
 
     @PostMapping("/authen")
     public ResponseEntity<?> createAuthentication(@RequestBody JwtRequest jwtRequest) throws Exception{
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getEmail(), jwtRequest.getPassword()));
-        }catch(BadCredentialsException e){
-            throw new Exception("incorrect",e);
+        } catch (BadCredentialsException e){
+            throw new Exception("Username or password not found",e);
         }
 
         final UserDetails userDetails = myUserDetailsService.loadUserByUsername(jwtRequest.getEmail());
