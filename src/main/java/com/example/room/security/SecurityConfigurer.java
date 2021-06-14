@@ -41,7 +41,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .authorizeRequests().antMatchers(HttpMethod.POST, "/authen").permitAll()
-                .antMatchers("/hi").hasRole("ADMIN")
+                .antMatchers("/hi").hasRole("USER")
                 .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -52,7 +52,6 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception{
         return super.authenticationManagerBean();
     }
-//    List
     @Bean
     protected PasswordEncoder passwordEncoder(){
         return NoOpPasswordEncoder.getInstance();

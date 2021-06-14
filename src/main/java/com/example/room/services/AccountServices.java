@@ -5,17 +5,24 @@ import com.example.room.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AccountServices {
-    final
-    AccountRepository repository;
+    private final AccountRepository repository;
+    private Optional<Account> account;
 
     public AccountServices(AccountRepository repository) {
         this.repository = repository;
     }
 
     public Account findAccount(String email){
-        return repository.findByEmail(email).get();
+        account = repository.findByEmail(email);
+        if(!account.isPresent()){
+            return null;
+        }
+        return account.get();
+
     }
 
 

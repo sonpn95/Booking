@@ -3,6 +3,7 @@ package com.example.room.services;
 import com.example.room.exceptions.MyUsernameNotFoundException;
 import com.example.room.models.entities.Account;
 import net.bytebuddy.implementation.bytecode.Throw;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,7 +31,7 @@ public class MyUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Account account = accountServices.findAccount(email);
         if (account == null){
-            throw new UsernameNotFoundException("username not found");
+            throw new BadCredentialsException("Username not found");
         }
         Set<GrantedAuthority> grantedAuthority =  new HashSet<>();
         List<String> roleName = roleService.findRole(account.getId());
